@@ -131,6 +131,19 @@ export default function CreateReport() {
         </AspectRatio>
 
         <FormControl isRequired>
+          <FormLabel>หมวดหมู่ปัญหา</FormLabel>
+          <Select
+            name="type"
+            placeholder="กรุณาเลือกหมวดหมู่ปัญหาที่เกี่ยวข้อง"
+            value={type}
+            onChange={handleChange}
+          >
+            <option value="water">ระบบน้ำ</option>
+            <option value="electronic">ระบบไฟฟ้า</option>
+            <option value="computer">ระบบคอมพิวเตอร์</option>
+            <option value="component">อุปกรณ์ชำรุด</option>
+          </Select>
+
           <FormLabel>รายละเอียด</FormLabel>
           <Textarea
             placeholder="รายละเอียด"
@@ -146,19 +159,6 @@ export default function CreateReport() {
             name="loc"
             onChange={handleChange}
           />
-
-          <FormLabel>หมวดหมู่ปัญหา</FormLabel>
-          <Select
-            name="type"
-            placeholder="กรุณาเลือกหมวดหมู่ปัญหาที่เกี่ยวข้อง"
-            value={type}
-            onChange={handleChange}
-          >
-            <option value="water">ระบบน้ำ</option>
-            <option value="electronic">ระบบไฟฟ้า</option>
-            <option value="computer">ระบบคอมพิวเตอร์</option>
-            <option value="component">อุปกรณ์ชำรุด</option>
-          </Select>
         </FormControl>
 
         <Button
