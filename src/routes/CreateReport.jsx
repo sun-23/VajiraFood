@@ -18,6 +18,7 @@ import {
   Textarea,
   Select,
   useDisclosure,
+  Spacer,
 } from "@chakra-ui/react";
 
 export default function CreateReport() {
@@ -88,6 +89,7 @@ export default function CreateReport() {
               <AlertTitle>กรอกข้อมูลไม่ครบ!</AlertTitle>
               <AlertDescription>กรุณากรอกข้อมูลให้ครบถ้วน</AlertDescription>
             </Box>
+            <Spacer />
             <CloseButton
               alignSelf="flex-start"
               position="relative"
