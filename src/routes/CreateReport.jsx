@@ -20,9 +20,11 @@ import {
   useDisclosure,
   Spacer,
 } from "@chakra-ui/react";
+import { supabase } from "../helper/supbaseClient";
 
 export default function CreateReport() {
   const [isLoading, setLoading] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
 
   // description
   const [description, setDesc] = useState("");
@@ -38,7 +40,7 @@ export default function CreateReport() {
     isOpen: isVisible,
     onClose,
     onOpen,
-  } = useDisclosure({ defaultIsOpen: false })
+  } = useDisclosure({ defaultIsOpen: false });
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -69,13 +71,40 @@ export default function CreateReport() {
     }
   };
 
+  //create a new report
+  const createReport = async () => {
+    //random id from time.now and random number
+    const id = Date.now() + Math.floor(Math.random() * 1000);
+    console.log(id);
+    const { data, error } = await supabase.from("problems").insert([
+      {
+        id: id,
+        title: description,
+        place: location,
+        type: type,
+        status: "pending",
+      },
+    ]);
+    const { data: image, error: err } = await supabase.storage
+      .from("images")
+      .upload(`${id}.jpg`, file);
+    if (error) {
+      console.log("error", error);
+      setLoading(false);
+    } else {
+      setSuccess(true);
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = () => {
     if (!file || !description || !location || !type) {
-        onOpen();
-        return
+      onOpen();
+      return;
     }
     setLoading(true);
     console.log("submit");
+    createReport();
   };
 
   return (
@@ -99,6 +128,26 @@ export default function CreateReport() {
             />
           </Alert>
         ) : null}
+        {isSuccess ? (
+          <Alert status="success">
+            <AlertIcon />
+            <Box>
+              <AlertTitle>รายงานปัญหาเสร็จสิ้น</AlertTitle>
+              <AlertDescription>
+                ขอบคุณที่แจ้งปัญหาให้เราทราบ
+                ทางเราจะรีบจัดการปัญหาของท่านอย่างรวดเร็วที่สุด
+              </AlertDescription>
+            </Box>
+            <Spacer />
+            <CloseButton
+              alignSelf="flex-start"
+              position="relative"
+              right={-1}
+              top={-1}
+              onClick={onClose}
+            />
+          </Alert>
+        ) : null}
         <AspectRatio width="auto" ratio={1}>
           <Box
             backgroundSize="cover"
@@ -108,13 +157,17 @@ export default function CreateReport() {
             backgroundImage={preview}
             rounded="md"
           >
-            <Stack p="8" textAlign="center" spacing="1">
-              <Heading fontSize="lg" color="gray.700" fontWeight="bold">
-                เลือกภาพ
-              </Heading>
-              <Text color="gray.700" fontWeight="light">
-                กดเพื่อเลือกไฟล์ภาพ
-              </Text>
+            <Stack p="8" textAlign="center" spacing="3">
+              {!file ? (
+                <Container>
+                  <Heading fontSize="lg" color="gray.700" fontWeight="bold">
+                    เลือกภาพ
+                  </Heading>
+                  <Text color="gray.700" fontWeight="light">
+                    กดเพื่อเลือกไฟล์ภาพ
+                  </Text>
+                </Container>
+              ) : null}
             </Stack>
             <Input
               type="file"
@@ -146,7 +199,7 @@ export default function CreateReport() {
             <option value="component">อุปกรณ์ชำรุด</option>
           </Select>
 
-          <FormLabel>รายละเอียด</FormLabel>
+          <FormLabel mt={3}>รายละเอียด</FormLabel>
           <Textarea
             placeholder="รายละเอียด"
             value={description}
@@ -154,7 +207,7 @@ export default function CreateReport() {
             onChange={handleChange}
           />
 
-          <FormLabel>สถานที่</FormLabel>
+          <FormLabel mt={3}>สถานที่</FormLabel>
           <Textarea
             placeholder="สถานที่"
             value={location}
@@ -167,10 +220,9 @@ export default function CreateReport() {
           isLoading={isLoading}
           loadingText="Submitting"
           colorScheme="teal"
-          variant="outline"
           onClick={handleSubmit}
         >
-          Submit
+          รายงาน
         </Button>
       </Stack>
     </Container>

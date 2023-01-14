@@ -34,6 +34,7 @@ export default function ListAllProblems() {
     const { data, error } = await supabase.storage
       .from("public")
       .download(`images/${id}.jpg`);
+    return console.log(data);
   }
 
   return (

@@ -7,6 +7,10 @@ const pages = [
     name: "New report",
     path: "/new_rep",
   },
+  {
+    name: "Reports",
+    path: "/problems",
+  },
 ];
 
 //export this array
