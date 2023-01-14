@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
   Image,
+  Stack,
   Button,
   Divider,
 } from "@chakra-ui/react";
@@ -32,30 +33,36 @@ export default function ListAllProblems() {
   return (
     <Container>
       <Heading mb={5}>List of Problems</Heading>
-      {problems.map((problem) => {
-        return (
-          <Card key={problem.id}>
-            <CardHeader>
-              <Heading as="h3" size="md">
-                {problem.title}
-              </Heading>
-            </CardHeader>
-            <CardBody>
-              <Text>{problem.place}</Text>
-            </CardBody>
-            <CardFooter>
-              <Image
-                src={`https://cqrxuuanxfamohfnsgmb.supabase.co/storage/v1/object/public/images/${problem.id}.jpg`}
-                alt="problem image"
-                boxSize="100px"
-                objectFit="cover"
-                borderRadius="lg"
-                mr={3}
-              />
-            </CardFooter>
-          </Card>
-        );
-      })}
+      <Stack spacing={4}>
+        {problems.map((problem) => {
+          return (
+            <Card key={problem.id} maxW="sm">
+              <CardBody>
+                <Image
+                  src={`https://cqrxuuanxfamohfnsgmb.supabase.co/storage/v1/object/public/images/${problem.id}.jpg`}
+                  alt="problem image"
+                  boxSize="auto"
+                  objectFit="cover"
+                  borderRadius="lg"
+                  mr={3}
+                />
+                <Stack mt="6" spacing="3">
+                  <Heading as="h3" size="md">
+                    {problem.title}
+                  </Heading>
+                  <Text>สถานที่: {problem.place}</Text>
+                </Stack>
+              </CardBody>
+              <Divider />
+              <CardFooter>
+                <Text color="blue.600" fontSize="2xl">
+                  สถานะ: {problem.status}
+                </Text>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </Stack>
     </Container>
   );
 }
