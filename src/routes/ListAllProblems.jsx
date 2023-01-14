@@ -29,19 +29,10 @@ export default function ListAllProblems() {
     else setProblems(problems);
   }
 
-  //fetch image from supabase
-  async function fetchImage(id) {
-    const { data, error } = await supabase.storage
-      .from("public")
-      .download(`images/${id}.jpg`);
-    return console.log(data);
-  }
-
   return (
     <Container>
       <Heading mb={5}>List of Problems</Heading>
       {problems.map((problem) => {
-        console.log(fetchImage(problem.id));
         return (
           <Card key={problem.id}>
             <CardHeader>
@@ -54,7 +45,7 @@ export default function ListAllProblems() {
             </CardBody>
             <CardFooter>
               <Image
-                src={fetchImage(problem.id)}
+                src={`https://cqrxuuanxfamohfnsgmb.supabase.co/storage/v1/object/public/images/${problem.id}.jpg`}
                 alt="problem image"
                 boxSize="100px"
                 objectFit="cover"
