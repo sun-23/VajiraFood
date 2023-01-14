@@ -80,7 +80,7 @@ export default function CreateReport() {
   return (
     <Container>
       <Heading>แจ้งปัญหาทางกายภาพในโรงเรียน</Heading>
-      <Stack spacing={4}>
+      <Stack spacing={4} paddingTop={4}>
         {isVisible ? (
           <Alert status="warning">
             <AlertIcon />
