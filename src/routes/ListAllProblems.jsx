@@ -15,6 +15,8 @@ import {
 import { supabase } from "../helper/supbaseClient";
 
 export default function ListAllProblems() {
+
+  const status = { "pending": "รอรับเรื่อง", "doing": "กำลังดำเนินการ", "finishing": "เสร็จสิ้น" };
   const [problems, setProblems] = React.useState([]);
 
   React.useEffect(() => {
@@ -56,7 +58,7 @@ export default function ListAllProblems() {
               <Divider />
               <CardFooter>
                 <Text color="blue.600" fontSize="2xl">
-                  สถานะ: {problem.status}
+                  สถานะ: {status[problem.status]}
                 </Text>
               </CardFooter>
             </Card>
