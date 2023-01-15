@@ -144,7 +144,7 @@ export default function CreateReport() {
               position="relative"
               right={-1}
               top={-1}
-              onClick={onClose}
+              onClick={() => setSuccess(false)}
             />
           </Alert>
         ) : null}
