@@ -20,6 +20,13 @@ export default function ListAllProblems() {
     doing: "กำลังดำเนินการ",
     finishing: "เสร็จสิ้น",
   };
+
+  const statusColor = {
+    pending: "red.200",
+    doing: "yellow.200",
+    finishing: "green.200",
+  };
+
   const [problems, setProblems] = React.useState([]);
 
   React.useEffect(() => {
@@ -101,9 +108,12 @@ export default function ListAllProblems() {
               </CardBody>
               <Divider />
               <CardFooter>
-                <Text color="blue.600" fontSize="2xl">
-                  สถานะ: {status[problem.status]}
-                </Text>
+                <Stack direction={["column", "row"]}>
+                  <Text fontSize="2xl">สถานะ:</Text>
+                  <Text color={statusColor[problem.status]} fontSize="2xl">
+                    {status[problem.status]}
+                  </Text>
+                </Stack>
               </CardFooter>
             </Card>
           );
