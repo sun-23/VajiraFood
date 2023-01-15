@@ -5,12 +5,13 @@ import { Link as routerLink } from "react-router-dom";
 import React from "react";
 import MobileDrawer from "./MobileDrawer";
 import pages from "../helper/routes";
+import Logo from "../assets/logo.png";
 
 export default function Header() {
   return (
     <chakra.header id="header">
       <Flex w="100%" px="6" py="5" align="center" justify="space-between">
-        <Text>Borwornpob.</Text>
+        <Image src={Logo} alt="logo" w="100px" />
         <HStack as="nav" spacing="4" display={{ base: "none", md: "flex" }}>
           {pages.map((page, i) => (
             <Link key={i} as={routerLink} to={page.path}>

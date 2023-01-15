@@ -14,6 +14,7 @@ import {
   FaInstagram,
   FaLine,
 } from "react-icons/fa";
+import Logo from "../assets/logo.png";
 
 export default function Footer() {
   return (
@@ -30,7 +31,7 @@ export default function Footer() {
     >
       <Stack>
         <Stack justify="space-between" direction="row" align="center">
-          <Text>Borwornpob.</Text>
+          <Image src={Logo} alt="logo" w="100px" />
           <ButtonGroup variant="ghost">
             <IconButton
               as="a"
