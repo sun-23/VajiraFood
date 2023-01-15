@@ -12,7 +12,7 @@ const pages = [
     path: "/problems",
   },
   {
-    name: "Deshboard",
+    name: "Dashboard",
     path: "/dashboard",
   },
 ];

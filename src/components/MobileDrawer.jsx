@@ -6,7 +6,7 @@ import {
   Icon,
   Link as ChakraLink,
 } from "@chakra-ui/react";
-import CustomDrawer from "./customDrawer";
+import CustomDrawer from "./CustomDrawer";
 import { IoMdMenu } from "react-icons/io";
 import React from "react";
 import pages from "../helper/routes";
