@@ -17,6 +17,7 @@ import {
   Select,
   Spacer,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../helper/supbaseClient";
 
 export default function Dashboard() {
@@ -32,6 +33,7 @@ export default function Dashboard() {
     finishing: "green.200",
   };
 
+  const navigate = useNavigate();
   const [problems, setProblems] = React.useState([]);
   const [type, setType] = useState("");
 
@@ -146,8 +148,9 @@ export default function Dashboard() {
   }
 
   //jump to editstatus page
-  function jumpToEditStatus(id) {
-    window.location.href = "/problems/" + id;
+  const jumpToEditStatus = (id) => {
+    console.log("link to ", "/problems/" + id);
+    navigate("/problems/" + id);
   }
 
   return (
@@ -202,7 +205,7 @@ export default function Dashboard() {
                       <Spacer />
                       <Button
                         colorScheme="yellow"
-                        onClick={jumpToEditStatus(problem.id)}
+                        onClick={() => jumpToEditStatus(problem.id)}
                         alignSelf="flex-end"
                       >
                         ดำเนินการ
