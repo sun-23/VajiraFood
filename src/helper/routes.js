@@ -15,6 +15,11 @@ const pages = [
     name: "Dashboard",
     path: "/dashboard",
   },
+  {
+    //edit status with id as params
+    name: "Edit status",
+    path: "/problems/:id",
+  },
 ];
 
 //export this array

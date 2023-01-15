@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import CreateReport from "./routes/CreateReport";
 import ListAllProblems from "./routes/ListAllProblems";
+import EditStatus from "./routes/EditStatus";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/new_rep" element={<CreateReport />} />
         <Route path="/problems" element={<ListAllProblems />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/problems/:id" element={<EditStatus />} />
       </Routes>
       <Footer />
     </Router>

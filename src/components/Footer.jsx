@@ -26,6 +26,7 @@ export default function Footer() {
         base: "2",
         md: "2",
       }}
+      w="100%"
     >
       <Stack>
         <Stack justify="space-between" direction="row" align="center">
