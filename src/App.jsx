@@ -6,6 +6,7 @@ import ListAllProblems from "./routes/ListAllProblems";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Dashboard from "./routes/Dashboard";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/new_rep" element={<CreateReport />} />
         <Route path="/problems" element={<ListAllProblems />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </Router>

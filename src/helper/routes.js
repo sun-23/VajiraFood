@@ -11,6 +11,10 @@ const pages = [
     name: "Reports",
     path: "/problems",
   },
+  {
+    name: "Deshboard",
+    path: "/dashboard",
+  },
 ];
 
 //export this array
