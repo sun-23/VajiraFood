@@ -1,9 +1,15 @@
 import { useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "../helper/auth/hook";
+import { useEffect } from "react";
 
 export default function RequireAuth({ children }) {
   const { session, user } = useAuth();
   let location = useLocation();
+
+  useEffect(() => {
+    console.log("session", session);
+    console.log("user", user);
+  }, [session, user]);
 
   if (!session || !user) {
     // Redirect them to the /login page, but save the current location they were
