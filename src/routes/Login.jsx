@@ -17,12 +17,16 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { supabase } from "../helper/supbaseClient";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alert_title, setAlertTitle] = useState("");
   const [alert_desc, setAlertDesc] = useState("");
+
+  const { state: locationState } = useLocation();
+  const navigate = useNavigate();
 
   // aleart
   const {
@@ -43,12 +47,17 @@ export default function Login() {
       email: email,
       password: password,
     });
+    console.log("login data", data);
 
     if (error) {
       console.log("login error", error);
+    } else {
+      //redirectTo in RequireAuth.jsx line 19
+      if (locationState) {
+        const { redirectTo } = locationState;
+        navigate(`${redirectTo.pathname}${redirectTo.search}`);
+      }
     }
-
-    console.log("login data", data);
   };
 
   return (

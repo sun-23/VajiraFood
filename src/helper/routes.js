@@ -20,10 +20,10 @@ const pages = [
     name: "Edit status",
     path: "/problems/:id",
   },
-  {
-    name: "Login",
-    path: "/login",
-  },
+  // {
+  //   name: "Login",
+  //   path: "/login",
+  // },
 ];
 
 //export this array

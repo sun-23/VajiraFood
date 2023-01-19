@@ -11,9 +11,16 @@ import { IoMdMenu } from "react-icons/io";
 import React from "react";
 import pages from "../helper/routes";
 
+import { useAuth } from "../helper/auth/hook";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../helper/supbaseClient";
+
 export default function MobileDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
+  const { session, user } = useAuth();
+  const navigate = useNavigate();
 
   //your path to pages
 
@@ -29,6 +36,25 @@ export default function MobileDrawer() {
               <Button variant="text">{page.name}</Button>
             </ChakraLink>
           ))}
+
+          {user && session ? null : (
+            <Button
+              colorScheme="teal"
+              size="md"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </Button>
+          )}
+          {!user || !session ? null : (
+            <Button
+              colorScheme="teal"
+              size="md"
+              onClick={() => supabase.auth.signOut()}
+            >
+              Logout
+            </Button>
+          )}
         </VStack>
       </CustomDrawer>
     </Flex>
