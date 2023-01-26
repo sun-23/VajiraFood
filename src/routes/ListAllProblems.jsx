@@ -116,7 +116,7 @@ export default function ListAllProblems() {
                     </Text>
                   </Stack>
                   {problem.editDesc ? (
-                    <Text>รายละเอียดการดำเนินงาน: {problem.editeditDesc}</Text>
+                    <Text>รายละเอียดการดำเนินงาน: {problem.editDesc}</Text>
                   ) : null}
                   {problem.editTimestamp ? (
                     <Text>
