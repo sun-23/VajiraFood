@@ -108,11 +108,21 @@ export default function ListAllProblems() {
               </CardBody>
               <Divider />
               <CardFooter>
-                <Stack direction={["column", "row"]}>
-                  <Text fontSize="2xl">สถานะ:</Text>
-                  <Text color={statusColor[problem.status]} fontSize="2xl">
-                    {status[problem.status]}
-                  </Text>
+                <Stack>
+                  <Stack direction={["row"]}>
+                    <Text fontSize="2xl">สถานะ:</Text>
+                    <Text color={statusColor[problem.status]} fontSize="2xl">
+                      {status[problem.status]}
+                    </Text>
+                  </Stack>
+                  {problem.editDesc ? (
+                    <Text>รายละเอียดการดำเนินงาน: {problem.editeditDesc}</Text>
+                  ) : null}
+                  {problem.editTimestamp ? (
+                    <Text>
+                      รายละเอียดการดำเนินงาน: {parseDate(problem.editeditDesc)}
+                    </Text>
+                  ) : null}
                 </Stack>
               </CardFooter>
             </Card>

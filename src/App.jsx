@@ -19,10 +19,9 @@ export default function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/new_rep" element={<CreateReport />} />
-          <Route path="/problems" element={<ListAllProblems />} />
+          <Route path="/" element={<ListAllProblems />} />
           <Route
             path="/dashboard"
             element={

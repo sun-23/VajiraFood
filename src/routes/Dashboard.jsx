@@ -197,7 +197,7 @@ export default function Dashboard() {
                   </CardBody>
                   <Divider />
                   <CardFooter>
-                    <Stack direction={["column", "row"]} width="100%">
+                    <Stack direction={["row"]} width="100%">
                       <Text fontSize="xl">สถานะ:</Text>
                       <Text color={statusColor[problem.status]} fontSize="xl">
                         {status[problem.status]}

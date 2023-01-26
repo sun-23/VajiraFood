@@ -25,6 +25,8 @@ import { supabase } from "../helper/supbaseClient";
 export default function CreateReport() {
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
+  const [isError, setError] = useState(false);
+  const [errdescrip, setErrDesc] = useState("");
 
   // description
   const [description, setDesc] = useState("");
@@ -83,6 +85,8 @@ export default function CreateReport() {
         place: location,
         type: type,
         status: "pending",
+        editDesc: null,
+        editTimestamp: null,
       },
     ]);
     const { data: image, error: err } = await supabase.storage
@@ -90,10 +94,14 @@ export default function CreateReport() {
       .upload(`${id}.jpg`, file);
     if (error) {
       console.log("error", error);
-      setLoading(false);
+      setErrDesc(error.message);
+      setError(true);
+    } else if (err) {
+      console.log("err", err);
+      setErrDesc(err.message);
+      setError(true);
     } else {
       setSuccess(true);
-      setLoading(false);
     }
   };
 
@@ -105,6 +113,7 @@ export default function CreateReport() {
     setLoading(true);
     console.log("submit");
     createReport();
+    setLoading(false);
   };
 
   return (
@@ -145,6 +154,23 @@ export default function CreateReport() {
               right={-1}
               top={-1}
               onClick={() => setSuccess(false)}
+            />
+          </Alert>
+        ) : null}
+        {isError ? (
+          <Alert status="error">
+            <AlertIcon />
+            <Box>
+              <AlertTitle>เกิดปัญหา</AlertTitle>
+              <AlertDescription>{errdescrip}</AlertDescription>
+            </Box>
+            <Spacer />
+            <CloseButton
+              alignSelf="flex-start"
+              position="relative"
+              right={-1}
+              top={-1}
+              onClick={() => setError(false)}
             />
           </Alert>
         ) : null}
