@@ -120,7 +120,7 @@ export default function ListAllProblems() {
                   ) : null}
                   {problem.editTimestamp ? (
                     <Text>
-                      รายละเอียดการดำเนินงาน: {parseDate(problem.editDesc)}
+                      วันที่เริมดำเนินการ: {parseDate(problem.editTimestamp)}
                     </Text>
                   ) : null}
                 </Stack>
