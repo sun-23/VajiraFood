@@ -120,7 +120,7 @@ export default function ListAllProblems() {
                   ) : null}
                   {problem.editTimestamp ? (
                     <Text>
-                      ดำเนินการล่าสุด: {Date(problem.editTimestamp).toString()}
+                      ดำเนินการล่าสุด: {new Date(problem.editTimestamp * 1).toLocaleString("th-TH")}
                     </Text>
                   ) : null}
                 </Stack>
