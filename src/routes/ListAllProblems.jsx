@@ -11,6 +11,8 @@ import {
   Stack,
   Button,
   Divider,
+  Select,
+  FormLabel,
 } from "@chakra-ui/react";
 import { supabase } from "../helper/supbaseClient";
 
@@ -28,10 +30,12 @@ export default function ListAllProblems() {
   };
 
   const [problems, setProblems] = React.useState([]);
+  const [type, setType] = React.useState("");
+  const [problemsStatus, setProblemsStatus] = React.useState("");
 
   React.useEffect(() => {
     fetchProblems();
-  }, []);
+  }, [type, problemsStatus]);
 
   //fucntion parse timestamp to readable date\
   function parseDate(timestamp) {
@@ -73,17 +77,72 @@ export default function ListAllProblems() {
   }
 
   async function fetchProblems() {
-    let { data: problems, error } = await supabase
-      .from("problems")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) console.log("error", error);
-    else setProblems(problems);
+    if (type && problemsStatus) {
+      let { data: problems, error } = await supabase
+        .from("problems")
+        .select("*")
+        .eq("status", problemsStatus)
+        .eq("type", type)
+        .order("created_at", { ascending: false });
+      if (error) console.log("error", error);
+      else setProblems(problems);
+    } else if (type && problemsStatus === "") {
+      let { data: problems, error } = await supabase
+        .from("problems")
+        .select("*")
+        .eq("type", type)
+        .order("created_at", { ascending: false });
+      if (error) console.log("error", error);
+      else setProblems(problems);
+    } else if (problemsStatus && type === "") {
+      let { data: problems, error } = await supabase
+        .from("problems")
+        .select("*")
+        .eq("status", problemsStatus)
+        .order("created_at", { ascending: false });
+      if (error) console.log("error", error);
+      else setProblems(problems);
+    } else if (problemsStatus === "" && type === ""){
+      let { data: problems, error } = await supabase
+        .from("problems")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) console.log("error", error);
+      else setProblems(problems);
+    }
   }
 
   return (
     <Container>
       <Heading mb={5}>List of Problems</Heading>
+
+      <FormLabel>สถานะ</FormLabel>
+      <Select
+        maxW="container.lg"
+        name="type"
+        placeholder="ทุกสถานะ"
+        value={problemsStatus}
+        onChange={(e) => setProblemsStatus(e.target.value)}
+      >
+        <option value="doing">กำลังดำเนินการ</option>
+        <option value="pending">รอรับเรื่อง</option>
+        <option value="finishing">เสร็จสิ้น</option>
+      </Select>
+
+      <FormLabel pt={3}>หมวดหมู่ปัญหา</FormLabel>
+      <Select
+        maxW="container.lg"
+        name="type"
+        placeholder="ทุกชนิดปัญหา"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+      >
+        <option value="water">ระบบน้ำ</option>
+        <option value="electronic">ระบบไฟฟ้า</option>
+        <option value="computer">ระบบคอมพิวเตอร์</option>
+        <option value="component">อุปกรณ์ชำรุด</option>
+      </Select>
+
       <Stack spacing={4} p={3} alignItems="center">
         {problems.map((problem) => {
           return (
@@ -120,7 +179,10 @@ export default function ListAllProblems() {
                   ) : null}
                   {problem.editTimestamp ? (
                     <Text>
-                      ดำเนินการล่าสุด: {new Date(problem.editTimestamp * 1).toLocaleString("th-TH")}
+                      ดำเนินการล่าสุด:{" "}
+                      {new Date(problem.editTimestamp * 1).toLocaleString(
+                        "th-TH"
+                      )}
                     </Text>
                   ) : null}
                 </Stack>
