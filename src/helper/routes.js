@@ -11,11 +11,11 @@ const pages = [
     name: "Dashboard",
     path: "/dashboard",
   },
-  {
-    //edit status with id as params
-    name: "Edit status",
-    path: "/problems/:id",
-  },
+  // {
+  //edit status with id as params
+  //   name: "Edit status",
+  //  path: "/problems/:id",
+  // },
   // {
   //   name: "Login",
   //   path: "/login",
