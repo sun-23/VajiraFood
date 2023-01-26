@@ -96,12 +96,15 @@ export default function CreateReport() {
       console.log("error", error);
       setErrDesc(error.message);
       setError(true);
+      setLoading(false);
     } else if (err) {
       console.log("err", err);
       setErrDesc(err.message);
       setError(true);
+      setLoading(false);
     } else {
       setSuccess(true);
+      setLoading(false);
     }
   };
 
@@ -113,7 +116,6 @@ export default function CreateReport() {
     setLoading(true);
     console.log("submit");
     createReport();
-    setLoading(false);
   };
 
   return (

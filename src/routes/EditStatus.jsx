@@ -28,7 +28,7 @@ import {
   AlertTitle,
   AlertDescription,
   AlertIcon,
-  CloseButton
+  CloseButton,
 } from "@chakra-ui/react";
 
 export default function EditStatus() {
@@ -114,15 +114,17 @@ export default function EditStatus() {
       if (error) {
         setErrDesc(error.message);
         setError(true);
+        setLoading(false);
         console.log("error", error);
       } else {
         setSuccess(true);
+        setLoading(false);
         console.log("success");
       }
     } else {
       setWarning(true);
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   //handlechange for select
@@ -167,11 +169,8 @@ export default function EditStatus() {
           <Alert status="success">
             <AlertIcon />
             <Box>
-              <AlertTitle>รายงานปัญหาเสร็จสิ้น</AlertTitle>
-              <AlertDescription>
-                ขอบคุณที่แจ้งปัญหาให้เราทราบ
-                ทางเราจะรีบจัดการปัญหาของท่านอย่างรวดเร็วที่สุด
-              </AlertDescription>
+              <AlertTitle>แก้ไขสถานะ</AlertTitle>
+              <AlertDescription>แก้ไขสถานะเสร็จสิ้น</AlertDescription>
             </Box>
             <Spacer />
             <CloseButton
