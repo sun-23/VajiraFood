@@ -62,7 +62,7 @@ export default function Login() {
 
   return (
     <Container>
-      <Heading>Login เข้าใช้งานฝ่ายบำรุง</Heading>
+      <Heading>Login VajiraFood</Heading>
       <Stack spacing={4} paddingTop={4}>
         {isVisible ? (
           <Alert status="warning">

@@ -1,25 +1,12 @@
 const pages = [
   {
-    name: "Problems",
+    name: "Home",
     path: "/",
   },
   {
-    name: "New report",
-    path: "/new_rep",
-  },
-  {
-    name: "Dashboard",
-    path: "/dashboard",
-  },
-  // {
-  //edit status with id as params
-  //   name: "Edit status",
-  //  path: "/problems/:id",
-  // },
-  // {
-  //   name: "Login",
-  //   path: "/login",
-  // },
+    name: "Suggest",
+    path: "/suggest",
+  }
 ];
 
 //export this array

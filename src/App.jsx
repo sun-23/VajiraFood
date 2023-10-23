@@ -1,14 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
-import CreateReport from "./routes/CreateReport";
-import ListAllProblems from "./routes/ListAllProblems";
-import EditStatus from "./routes/EditStatus";
-import Login from "./routes/Login";
-import Dashboard from "./routes/Dashboard";
-
+import Suggest from "./routes/Suggest";
+import Food from "./routes/Food";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Login from "./routes/Login";
 
 import { AuthProvider } from "./helper/auth/Context";
 import RequireAuth from "./components/RequireAuth";
@@ -20,21 +17,27 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/new_rep" element={<CreateReport />} />
-          <Route path="/" element={<ListAllProblems />} />
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <RequireAuth>
-                <Dashboard />
+                <Home />
               </RequireAuth>
             }
           />
           <Route
-            path="/problems/:id"
+            path="/suggest"
             element={
               <RequireAuth>
-                <EditStatus />
+                <Suggest />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/food/:id"
+            element={
+              <RequireAuth>
+                <Food />
               </RequireAuth>
             }
           />
