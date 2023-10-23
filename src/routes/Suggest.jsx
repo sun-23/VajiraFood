@@ -92,7 +92,10 @@ export default function Suggest() {
 
   return (
     <Container>
-      <Heading marginBottom={3}>แบบสุ่มทั้งหมด</Heading>
+      <HStack spacing={3}>
+        <Heading marginBottom={3}>แบบสุ่มทั้งหมด</Heading>
+        <Text marginBottom={3}>กดที่รูปภาพเลย</Text>
+      </HStack>
       <AspectRatio width="auto" ratio={1}>
         <IconButton
           onClick={() => randomfood()}
