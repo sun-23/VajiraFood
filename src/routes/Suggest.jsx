@@ -91,6 +91,7 @@ export default function Suggest() {
 
   return (
     <Container>
+      <Heading>แบบสุ่มทั้งหมด</Heading>
       <AspectRatio width="auto" ratio={1}>
         <IconButton
           onClick={() => randomfood()}
@@ -98,7 +99,7 @@ export default function Suggest() {
         />
       </AspectRatio>
       <VStack marginTop={3} marginBottom={3} spacing={3} align="stretch">
-        <Heading>แบบตัวเลือก</Heading>
+        <Heading>แบบสุ่มจากตัวเลือก</Heading>
 
         <Checkbox
           onChange={(e) => setVegetable(e.target.checked)}
