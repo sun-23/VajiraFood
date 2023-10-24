@@ -44,9 +44,9 @@ export default function Suggest() {
   const [saltyValue, setSaltyValue] = useState([2, 8]);
   const [showSaltyTooltip, setSaltyTooltip] = useState(false);
 
-  const [priceValue, setPriceValue] = useState(50);
+  const [priceValue, setPriceValue] = useState(100);
   const [showPriceTooltip, setPriceTooltip] = useState(false);
-  const [calories, setCalories] = useState(250);
+  const [calories, setCalories] = useState(500);
   const [showCaloriesTooltip, setCaloriesTooltip] = useState(false);
 
   const [vegetable, setVegetable] = useState(true);
@@ -134,23 +134,23 @@ export default function Suggest() {
           <Text>แคลอรีไม่เกิน {calories} กิโลแคลอรี</Text>
           <Slider
             id="slider"
-            defaultValue={250}
+            defaultValue={500}
             min={0}
-            max={500}
+            max={2000}
             step={1}
             colorScheme="gray"
             onChange={(v) => setCalories(v)}
             onMouseEnter={() => setCaloriesTooltip(true)}
             onMouseLeave={() => setCaloriesTooltip(false)}
           >
-            <SliderMark value={100} mt="1" ml="-2.5" fontSize="sm">
-              100 kcal
+            <SliderMark value={500} mt="1" ml="-2.5" fontSize="sm">
+              500 kcal
             </SliderMark>
-            <SliderMark value={250} mt="1" ml="-2.5" fontSize="sm">
-              250 kcal
+            <SliderMark value={1000} mt="1" ml="-2.5" fontSize="sm">
+              1000 kcal
             </SliderMark>
-            <SliderMark value={400} mt="1" ml="-2.5" fontSize="sm">
-              400 kcal
+            <SliderMark value={1500} mt="1" ml="-2.5" fontSize="sm">
+              1500 kcal
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
@@ -172,9 +172,9 @@ export default function Suggest() {
           <Text>ราคาไม่เกิน {priceValue} บาท</Text>
           <Slider
             id="slider"
-            defaultValue={50}
+            defaultValue={100}
             min={0}
-            max={200}
+            max={500}
             step={1}
             colorScheme="red"
             onChange={(v) => setPriceValue(v)}
