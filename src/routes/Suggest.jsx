@@ -264,7 +264,7 @@ export default function Suggest() {
         </Box>
 
         <Box pt={6} pb={2}>
-        <Text>ระดับความหวานตั้งแต่ {saltyValue[0]} ถึง {saltyValue[1]}</Text>
+        <Text>ระดับความเค็มตั้งแต่ {saltyValue[0]} ถึง {saltyValue[1]}</Text>
           <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSaltyValue(val)} onMouseEnter={() => setSaltyTooltip(true)}
             onMouseLeave={() => setSaltyTooltip(false)}>
             <RangeSliderTrack bg='teal.100'>
