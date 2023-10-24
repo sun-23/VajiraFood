@@ -49,7 +49,9 @@ export default function Login() {
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithOtp({ email })
+    const { data, error } = await supabase.auth.signInWithOtp({ email, options: {
+      emailRedirectTo: 'https://vajirafood.netlify.app/',
+    }, })
     console.log("login data", data);
 
     if (error) {
