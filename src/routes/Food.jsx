@@ -88,14 +88,16 @@ export default function Food() {
     }
   }
 
-  return(
+  return (
     <Container>
       <AspectRatio width="auto" ratio={1}>
         <Image borderRadius={5} src={food.imgUrl} />
       </AspectRatio>
       <VStack marginTop={3} spacing={3} marginBottom={3}>
         <Heading>ชื่อเมนู {food.name}</Heading>
-        <Text fontSize="xl">คำอธิบาย {food.description}</Text>
+        <Text fontSize="xl">
+          คำอธิบาย {!food.description ? "ไม่มีคำอธฺบาย" : food.description}
+        </Text>
         <Heading>ร้าน {food.restaurant_name}</Heading>
         <Text fontSize="xl">บริเวณ {food.area}</Text>
         <Heading>ราคา {food.price} บาท</Heading>
@@ -103,53 +105,48 @@ export default function Food() {
           จำนวนแคลอรี่ {food.calories} กิโลแคลอรี
         </Heading>
         <VStack spacing={3} align="stretch">
-          <Button
-              colorScheme="teal"
-              size="lg"
-              onClick={() => onOpen()}
-            >
+          <Button colorScheme="teal" size="lg" onClick={() => onOpen()}>
             เขียนรีวิว
           </Button>
           {reviews.length > 0 ? (
             reviews.map((review) => {
               return (
                 <Box
-                key={review.id}
-                maxW="sm"
-                borderWidth="1px"
-                borderRadius="lg"
-              >
-                <Box p="6">
-                  <Box
-                    mt="1"
-                    fontWeight="semibold"
-                    as="h4"
-                    lineHeight="tight"
-                    noOfLines={1}
-                  >
-                    {review.user_email}
-                  </Box>
-                  <Box display="flex" mt="2" alignItems="center">
-                    {Array(5)
-                      .fill("")
-                      .map((_, i) => (
-                        <StarIcon
-                          key={i}
-                          color={
-                            i < review.rating_star ? "#ffc107" : "#e4e5e9"
-                          }
-                        />
-                      ))}
-                  </Box>
-                  <Box mt="1" as="h4" lineHeight="tight">
-                    {review.text}
+                  key={review.id}
+                  maxW="sm"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                >
+                  <Box p="6">
+                    <Box
+                      mt="1"
+                      fontWeight="semibold"
+                      as="h4"
+                      lineHeight="tight"
+                      noOfLines={1}
+                    >
+                      {review.user_email}
+                    </Box>
+                    <Box display="flex" mt="2" alignItems="center">
+                      {Array(5)
+                        .fill("")
+                        .map((_, i) => (
+                          <StarIcon
+                            key={i}
+                            color={
+                              i < review.rating_star ? "#ffc107" : "#e4e5e9"
+                            }
+                          />
+                        ))}
+                    </Box>
+                    <Box mt="1" as="h4" lineHeight="tight">
+                      {review.text}
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-
               );
             })
-          ):(
+          ) : (
             <Text>ไม่มีรีวิว</Text>
           )}
         </VStack>
@@ -160,16 +157,27 @@ export default function Food() {
             <ModalCloseButton />
             <ModalBody>
               <HStack padding={3}>
-                <StarRating rating={rating_star} setRating={setRatingStar}/>
+                <StarRating rating={rating_star} setRating={setRatingStar} />
                 <Text>{rating_star} ดาว</Text>
               </HStack>
-              <Textarea placeholder='เขียนรีวิวเลย' value={text} onChange={(e) => setText(e.target.value)}/>
+              <Textarea
+                placeholder="เขียนรีวิวเลย"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
             </ModalBody>
             <ModalFooter>
-              <Button variant='ghost' colorScheme='red' mr={3} onClick={onClose}>
+              <Button
+                variant="ghost"
+                colorScheme="red"
+                mr={3}
+                onClick={onClose}
+              >
                 ยกเลิก
               </Button>
-              <Button colorScheme='teal' onClick={() => handleReview()}>ตกลง</Button>
+              <Button colorScheme="teal" onClick={() => handleReview()}>
+                ตกลง
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
