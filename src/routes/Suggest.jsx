@@ -182,13 +182,13 @@ export default function Suggest() {
             onMouseLeave={() => setPriceTooltip(false)}
           >
             <SliderMark value={100} mt="1" ml="-2.5" fontSize="sm">
-              40 บาท
-            </SliderMark>
-            <SliderMark value={250} mt="1" ml="-2.5" fontSize="sm">
               100 บาท
             </SliderMark>
+            <SliderMark value={250} mt="1" ml="-2.5" fontSize="sm">
+              250 บาท
+            </SliderMark>
             <SliderMark value={400} mt="1" ml="-2.5" fontSize="sm">
-              160 บาท
+              400 บาท
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
