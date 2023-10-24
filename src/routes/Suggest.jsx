@@ -28,7 +28,7 @@ import {
   RangeSliderTrack,
   RangeSliderFilledTrack,
   RangeSliderThumb,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
 import React, { useState, useEffect } from "react";
 import { supabase } from "../helper/supbaseClient";
@@ -37,11 +37,11 @@ import { useNavigate } from "react-router-dom";
 export default function Suggest() {
   const navigate = useNavigate();
   const [ids, setIDs] = useState([]);
-  const [spicyValue, setSpicyValue] = useState([2,8]);
+  const [spicyValue, setSpicyValue] = useState([2, 8]);
   const [showSpicyTooltip, setSpicyTooltip] = useState(false);
-  const [sweetValue, setSweetValue] = useState([2,8]);
+  const [sweetValue, setSweetValue] = useState([2, 8]);
   const [showSweetTooltip, setSweetTooltip] = useState(false);
-  const [saltyValue, setSaltyValue] = useState([2,8]);
+  const [saltyValue, setSaltyValue] = useState([2, 8]);
   const [showSaltyTooltip, setSaltyTooltip] = useState(false);
 
   const [priceValue, setPriceValue] = useState(50);
@@ -63,9 +63,10 @@ export default function Suggest() {
   }
 
   async function randomfood() {
-    let total_foods = ids.length;
-    let ranIndex = Math.floor(Math.random() * total_foods) + 1;
-    navigate("/food/" + ranIndex);
+    let total = ids.length;
+    let ran_id = ids[Math.floor(Math.random() * total)].id;
+    console.log("goto id", ran_id);
+    navigate("/food/" + ran_id);
   }
 
   async function filterRandomFood() {
@@ -77,11 +78,11 @@ export default function Suggest() {
       .eq("isVegetable", vegetable)
       .lte("price", priceValue)
       .lte("calories", calories)
-      .gte('spicy_level', spicyValue[0]) //gte Greater than or equal to
+      .gte("spicy_level", spicyValue[0]) //gte Greater than or equal to
       .lte("spicy_level", spicyValue[1]) //lte Less than or equal to
-      .gte('sweet_level', sweetValue[0])
+      .gte("sweet_level", sweetValue[0])
       .lte("sweet_level", sweetValue[1])
-      .gte('salty_level', saltyValue[0])
+      .gte("salty_level", saltyValue[0])
       .lte("salty_level", saltyValue[1]);
     if (error) console.log("error", error);
     else {
@@ -91,11 +92,12 @@ export default function Suggest() {
 
     if (total === 0) {
       alert("ไม่เจออาหารตรงกับที่คุณต้องการ");
+      return;
     }
     console.log("total", total);
     console.log("array", arryIndex);
 
-    let ran_id = arryIndex[Math.floor(Math.random() * total)]?.id;
+    let ran_id = arryIndex[Math.floor(Math.random() * total)].id;
     console.log("goto id", ran_id);
     navigate("/food/" + ran_id);
   }
@@ -114,7 +116,7 @@ export default function Suggest() {
           }
         />
       </AspectRatio>
-      <Box position='relative' pt={6} pb={2}>
+      <Box position="relative" pt={6} pb={2}>
         <Divider />
       </Box>
       <VStack marginTop={3} marginBottom={3} spacing={3} align="stretch">
@@ -205,11 +207,20 @@ export default function Suggest() {
         </Box>
 
         <Box pt={6} pb={2}>
-          <Text>ระดับความเผ็ดตั้งแต่ {spicyValue[0]} ถึง {spicyValue[1]}</Text>
-          <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSpicyValue(val)} onMouseEnter={() => setSpicyTooltip(true)}
-            onMouseLeave={() => setSpicyTooltip(false)}>
-            <RangeSliderTrack bg='red.100'>
-              <RangeSliderFilledTrack bg='tomato' />
+          <Text>
+            ระดับความเผ็ดตั้งแต่ {spicyValue[0]} ถึง {spicyValue[1]}
+          </Text>
+          <RangeSlider
+            defaultValue={[2, 8]}
+            min={0}
+            max={10}
+            step={1}
+            onChangeEnd={(val) => setSpicyValue(val)}
+            onMouseEnter={() => setSpicyTooltip(true)}
+            onMouseLeave={() => setSpicyTooltip(false)}
+          >
+            <RangeSliderTrack bg="red.100">
+              <RangeSliderFilledTrack bg="tomato" />
             </RangeSliderTrack>
             <Tooltip
               hasArrow
@@ -236,11 +247,20 @@ export default function Suggest() {
         </Box>
 
         <Box pt={6} pb={2}>
-        <Text>ระดับความหวานตั้งแต่ {sweetValue[0]} ถึง {sweetValue[1]}</Text>
-          <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSweetValue(val)} onMouseEnter={() => setSweetTooltip(true)}
-            onMouseLeave={() => setSweetTooltip(false)}>
-            <RangeSliderTrack bg='pink.100'>
-              <RangeSliderFilledTrack bg='pink.500' />
+          <Text>
+            ระดับความหวานตั้งแต่ {sweetValue[0]} ถึง {sweetValue[1]}
+          </Text>
+          <RangeSlider
+            defaultValue={[2, 8]}
+            min={0}
+            max={10}
+            step={1}
+            onChangeEnd={(val) => setSweetValue(val)}
+            onMouseEnter={() => setSweetTooltip(true)}
+            onMouseLeave={() => setSweetTooltip(false)}
+          >
+            <RangeSliderTrack bg="pink.100">
+              <RangeSliderFilledTrack bg="pink.500" />
             </RangeSliderTrack>
             <Tooltip
               hasArrow
@@ -267,11 +287,20 @@ export default function Suggest() {
         </Box>
 
         <Box pt={6} pb={2}>
-        <Text>ระดับความเค็มตั้งแต่ {saltyValue[0]} ถึง {saltyValue[1]}</Text>
-          <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSaltyValue(val)} onMouseEnter={() => setSaltyTooltip(true)}
-            onMouseLeave={() => setSaltyTooltip(false)}>
-            <RangeSliderTrack bg='teal.100'>
-              <RangeSliderFilledTrack bg='teal.500' />
+          <Text>
+            ระดับความเค็มตั้งแต่ {saltyValue[0]} ถึง {saltyValue[1]}
+          </Text>
+          <RangeSlider
+            defaultValue={[2, 8]}
+            min={0}
+            max={10}
+            step={1}
+            onChangeEnd={(val) => setSaltyValue(val)}
+            onMouseEnter={() => setSaltyTooltip(true)}
+            onMouseLeave={() => setSaltyTooltip(false)}
+          >
+            <RangeSliderTrack bg="teal.100">
+              <RangeSliderFilledTrack bg="teal.500" />
             </RangeSliderTrack>
             <Tooltip
               hasArrow
