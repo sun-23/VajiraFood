@@ -108,7 +108,7 @@ export default function Home() {
                         <StarIcon
                           key={i}
                           color={
-                            i < restaurant.rating ? "yellow.500" : "gray.300"
+                            i < restaurant.rating ? "#ffc107" : "#e4e5e9"
                           }
                         />
                       ))}

@@ -10,7 +10,7 @@ import {
   Image,
   AspectRatio,
   IconButton,
-  Stack,
+  Divider,
 } from "@chakra-ui/react";
 
 //slider
@@ -95,7 +95,7 @@ export default function Suggest() {
     console.log("total", total);
     console.log("array", arryIndex);
 
-    let ran_id = arryIndex[Math.floor(Math.random() * total)].id;
+    let ran_id = arryIndex[Math.floor(Math.random() * total)]?.id;
     console.log("goto id", ran_id);
     navigate("/food/" + ran_id);
   }
@@ -114,6 +114,9 @@ export default function Suggest() {
           }
         />
       </AspectRatio>
+      <Box position='relative' pt={6} pb={2}>
+        <Divider />
+      </Box>
       <VStack marginTop={3} marginBottom={3} spacing={3} align="stretch">
         <Heading>แบบสุ่มจากตัวเลือก</Heading>
 

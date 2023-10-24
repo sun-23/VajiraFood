@@ -6,6 +6,7 @@ import Food from "./routes/Food";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./routes/Login";
+import Account from "./routes/Account";
 
 import { AuthProvider } from "./helper/auth/Context";
 import RequireAuth from "./components/RequireAuth";
@@ -33,6 +34,14 @@ export default function App() {
               </RequireAuth>
             }
           />
+          {/* <Route
+            path="/account"
+            element={
+              <RequireAuth>
+                <Account />
+              </RequireAuth>
+            }
+          /> */}
           <Route
             path="/food/:id"
             element={

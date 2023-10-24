@@ -37,7 +37,7 @@ export default function MobileDrawer() {
             </ChakraLink>
           ))}
 
-          {user && session ? null : (
+          {/* {user && session ? null : (
             <Button
               colorScheme="teal"
               size="md"
@@ -45,7 +45,7 @@ export default function MobileDrawer() {
             >
               Login
             </Button>
-          )}
+          )} */}
           {!user || !session ? null : (
             <Button
               colorScheme="teal"

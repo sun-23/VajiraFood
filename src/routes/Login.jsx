@@ -14,16 +14,19 @@ import {
   CloseButton,
   useDisclosure,
   Stack,
+  Text,
 } from "@chakra-ui/react";
+import { EmailIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import { supabase } from "../helper/supbaseClient";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false)
   const [alert_title, setAlertTitle] = useState("");
   const [alert_desc, setAlertDesc] = useState("");
+  const [alert_status, setAlertStatus] = useState("warning");
 
   const { state: locationState } = useLocation();
   const navigate = useNavigate();
@@ -36,36 +39,45 @@ export default function Login() {
   } = useDisclosure({ defaultIsOpen: false });
 
   const handleLogin = async () => {
-    if (!email || !password) {
+    setLoading(true)
+    if (!email) {
+      setAlertStatus("warning");
       setAlertTitle("กรอกข้อมูลไม่ครบ!");
       setAlertDesc("กรุณากรอกข้อมูลให้ครบถ้วน");
       onOpen();
+      setLoading(false)
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+    const { data, error } = await supabase.auth.signInWithOtp({ email })
     console.log("login data", data);
 
     if (error) {
       console.log("login error", error);
     } else {
+      console.log("sending email link");
+      setAlertStatus("success");
+      setAlertTitle("สำเร็จ!");
+      setAlertDesc("ไปที่ email เพื่อรับ link log in จาก supabase");
+      onOpen();
+
       //redirectTo in RequireAuth.jsx line 19
-      if (locationState) {
-        const { redirectTo } = locationState;
-        navigate(`${redirectTo.pathname}${redirectTo.search}`);
-      }
+      // if (locationState) {
+      //   const { redirectTo } = locationState;
+      //   navigate(`${redirectTo.pathname}${redirectTo.search}`);
+      // }
     }
+
+    setLoading(false)
   };
 
   return (
     <Container>
-      <Heading>Login VajiraFood</Heading>
+      <Heading>Sign in VajiraFood</Heading>
+      <Text>Sign in via magic link with your email below</Text>
       <Stack spacing={4} paddingTop={4}>
         {isVisible ? (
-          <Alert status="warning">
+          <Alert status={alert_status}>
             <AlertIcon />
             <Box>
               <AlertTitle>{alert_title}</AlertTitle>
@@ -81,7 +93,7 @@ export default function Login() {
             />
           </Alert>
         ) : null}
-        <FormControl isRequired>
+        <FormControl isRequire>
           <FormLabel mt={3}>Email</FormLabel>
           <Input
             placeholder="email"
@@ -89,19 +101,15 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
-          <FormLabel mt={3}>Password</FormLabel>
-          <Input
-            placeholder="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <Button 
+            leftIcon={<EmailIcon />} 
+            mt={3} colorScheme="teal" 
+            isLoading={loading} 
+            onClick={() => handleLogin()}
+          >
+            {loading ? <Text>Loading</Text> : <Text>Send magic link</Text>}
+          </Button>
         </FormControl>
-
-        <Button colorScheme="teal" onClick={() => handleLogin()}>
-          Login
-        </Button>
       </Stack>
     </Container>
   );

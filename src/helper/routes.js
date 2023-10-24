@@ -6,7 +6,11 @@ const pages = [
   {
     name: "Suggest",
     path: "/suggest",
-  }
+  },
+  // {
+  //   name: "Account",
+  //   path: "/account",
+  // }
 ];
 
 //export this array

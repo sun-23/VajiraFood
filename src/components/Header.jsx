@@ -32,7 +32,7 @@ export default function Header() {
             </Link>
           ))}
 
-          {user && session ? null : (
+          {/* {user && session ? null : (
             <Button
               colorScheme="teal"
               size="md"
@@ -40,7 +40,7 @@ export default function Header() {
             >
               Login
             </Button>
-          )}
+          )} */}
           {!user || !session ? null : (
             <Button
               colorScheme="teal"
