@@ -96,7 +96,7 @@ export default function Food() {
       <VStack marginTop={3} spacing={3} marginBottom={3}>
         <Heading>ชื่อเมนู {food.name}</Heading>
         <Text fontSize="xl">
-          คำอธิบาย {!food.description ? "ไม่มีคำอธฺบาย" : food.description}
+          คำอธิบาย {!food.description ? "ไม่มีคำอธิบาย" : food.description}
         </Text>
         <Heading>ร้าน {food.restaurant_name}</Heading>
         <Text fontSize="xl">บริเวณ {food.area}</Text>
