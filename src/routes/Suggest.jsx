@@ -23,6 +23,13 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
+import {
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+} from '@chakra-ui/react'
+
 import React, { useState, useEffect } from "react";
 import { supabase } from "../helper/supbaseClient";
 import { useNavigate } from "react-router-dom";
@@ -30,11 +37,11 @@ import { useNavigate } from "react-router-dom";
 export default function Suggest() {
   const navigate = useNavigate();
   const [ids, setIDs] = useState([]);
-  const [spicyValue, setSpicyValue] = useState(5);
+  const [spicyValue, setSpicyValue] = useState([2,8]);
   const [showSpicyTooltip, setSpicyTooltip] = useState(false);
-  const [sweetValue, setSweetValue] = useState(5);
+  const [sweetValue, setSweetValue] = useState([2,8]);
   const [showSweetTooltip, setSweetTooltip] = useState(false);
-  const [saltyValue, setSaltyValue] = useState(5);
+  const [saltyValue, setSaltyValue] = useState([2,8]);
   const [showSaltyTooltip, setSaltyTooltip] = useState(false);
 
   const [priceValue, setPriceValue] = useState(50);
@@ -70,9 +77,12 @@ export default function Suggest() {
       .eq("isVegetable", vegetable)
       .lte("price", priceValue)
       .lte("calories", calories)
-      .lte("spicy_level", spicyValue)
-      .lte("sweet_level", sweetValue)
-      .lte("salty_level", saltyValue);
+      .gte('spicy_level', spicyValue[0]) //gte Greater than or equal to
+      .lte("spicy_level", spicyValue[1]) //lte Less than or equal to
+      .gte('sweet_level', sweetValue[0])
+      .lte("sweet_level", sweetValue[1])
+      .gte('salty_level', saltyValue[0])
+      .lte("salty_level", saltyValue[1]);
     if (error) console.log("error", error);
     else {
       total = Foods.length;
@@ -129,13 +139,13 @@ export default function Suggest() {
             onMouseLeave={() => setCaloriesTooltip(false)}
           >
             <SliderMark value={100} mt="1" ml="-2.5" fontSize="sm">
-              20%
+              100 kcal
             </SliderMark>
             <SliderMark value={250} mt="1" ml="-2.5" fontSize="sm">
-              50%
+              250 kcal
             </SliderMark>
             <SliderMark value={400} mt="1" ml="-2.5" fontSize="sm">
-              80%
+              400 kcal
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
@@ -167,13 +177,13 @@ export default function Suggest() {
             onMouseLeave={() => setPriceTooltip(false)}
           >
             <SliderMark value={40} mt="1" ml="-2.5" fontSize="sm">
-              20%
+              40 บาท
             </SliderMark>
             <SliderMark value={100} mt="1" ml="-2.5" fontSize="sm">
-              50%
+              100 บาท
             </SliderMark>
             <SliderMark value={160} mt="1" ml="-2.5" fontSize="sm">
-              80%
+              160 บาท
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack />
@@ -192,115 +202,96 @@ export default function Suggest() {
         </Box>
 
         <Box pt={6} pb={2}>
-          <Text>ระดับความเผ็ด {spicyValue} จาก 10</Text>
-          <Slider
-            id="slider"
-            defaultValue={5}
-            min={0}
-            max={10}
-            step={1}
-            colorScheme="red"
-            onChange={(v) => setSpicyValue(v)}
-            onMouseEnter={() => setSpicyTooltip(true)}
-            onMouseLeave={() => setSpicyTooltip(false)}
-          >
-            <SliderMark value={2} mt="1" ml="-2.5" fontSize="sm">
-              20%
-            </SliderMark>
-            <SliderMark value={5} mt="1" ml="-2.5" fontSize="sm">
-              50%
-            </SliderMark>
-            <SliderMark value={8} mt="1" ml="-2.5" fontSize="sm">
-              80%
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
+          <Text>ระดับความเผ็ดตั้งแต่ {spicyValue[0]} ถึง {spicyValue[1]}</Text>
+          <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSpicyValue(val)} onMouseEnter={() => setSpicyTooltip(true)}
+            onMouseLeave={() => setSpicyTooltip(false)}>
+            <RangeSliderTrack bg='red.100'>
+              <RangeSliderFilledTrack bg='tomato' />
+            </RangeSliderTrack>
             <Tooltip
               hasArrow
               bg="red.500"
               color="white"
               placement="top"
               isOpen={showSpicyTooltip}
-              label={spicyValue}
+              label={spicyValue[0]}
             >
-              <SliderThumb />
+              <RangeSliderThumb boxSize={6} index={0} />
             </Tooltip>
-          </Slider>
+
+            <Tooltip
+              hasArrow
+              bg="red.500"
+              color="white"
+              placement="top"
+              isOpen={showSpicyTooltip}
+              label={spicyValue[1]}
+            >
+              <RangeSliderThumb boxSize={6} index={1} />
+            </Tooltip>
+          </RangeSlider>
         </Box>
+
         <Box pt={6} pb={2}>
-          <Text>ระดับความหวาน {sweetValue} จาก 10</Text>
-          <Slider
-            id="slider"
-            defaultValue={5}
-            min={0}
-            max={10}
-            step={1}
-            colorScheme="pink"
-            onChange={(v) => setSweetValue(v)}
-            onMouseEnter={() => setSweetTooltip(true)}
-            onMouseLeave={() => setSweetTooltip(false)}
-          >
-            <SliderMark value={2} mt="1" ml="-2.5" fontSize="sm">
-              20%
-            </SliderMark>
-            <SliderMark value={5} mt="1" ml="-2.5" fontSize="sm">
-              50%
-            </SliderMark>
-            <SliderMark value={8} mt="1" ml="-2.5" fontSize="sm">
-              80%
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
+        <Text>ระดับความหวานตั้งแต่ {sweetValue[0]} ถึง {sweetValue[1]}</Text>
+          <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSweetValue(val)} onMouseEnter={() => setSweetTooltip(true)}
+            onMouseLeave={() => setSweetTooltip(false)}>
+            <RangeSliderTrack bg='pink.100'>
+              <RangeSliderFilledTrack bg='pink.500' />
+            </RangeSliderTrack>
             <Tooltip
               hasArrow
               bg="pink.500"
               color="white"
               placement="top"
               isOpen={showSweetTooltip}
-              label={sweetValue}
+              label={sweetValue[0]}
             >
-              <SliderThumb />
+              <RangeSliderThumb boxSize={6} index={0} />
             </Tooltip>
-          </Slider>
+
+            <Tooltip
+              hasArrow
+              bg="pink.500"
+              color="white"
+              placement="top"
+              isOpen={showSweetTooltip}
+              label={sweetValue[1]}
+            >
+              <RangeSliderThumb boxSize={6} index={1} />
+            </Tooltip>
+          </RangeSlider>
         </Box>
+
         <Box pt={6} pb={2}>
-          <Text>ระดับความเค็ม {saltyValue} จาก 10</Text>
-          <Slider
-            id="slider"
-            defaultValue={5}
-            min={0}
-            max={10}
-            step={1}
-            colorScheme="teal"
-            onChange={(v) => setSaltyValue(v)}
-            onMouseEnter={() => setSaltyTooltip(true)}
-            onMouseLeave={() => setSaltyTooltip(false)}
-          >
-            <SliderMark value={2} mt="1" ml="-2.5" fontSize="sm">
-              20%
-            </SliderMark>
-            <SliderMark value={5} mt="1" ml="-2.5" fontSize="sm">
-              50%
-            </SliderMark>
-            <SliderMark value={8} mt="1" ml="-2.5" fontSize="sm">
-              80%
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
+        <Text>ระดับความหวานตั้งแต่ {saltyValue[0]} ถึง {saltyValue[1]}</Text>
+          <RangeSlider defaultValue={[2, 8]} min={0} max={10} step={1} onChangeEnd={(val) => setSaltyValue(val)} onMouseEnter={() => setSaltyTooltip(true)}
+            onMouseLeave={() => setSaltyTooltip(false)}>
+            <RangeSliderTrack bg='teal.100'>
+              <RangeSliderFilledTrack bg='teal.500' />
+            </RangeSliderTrack>
             <Tooltip
               hasArrow
               bg="teal.500"
               color="white"
               placement="top"
               isOpen={showSaltyTooltip}
-              label={saltyValue}
+              label={saltyValue[0]}
             >
-              <SliderThumb />
+              <RangeSliderThumb boxSize={6} index={0} />
             </Tooltip>
-          </Slider>
+
+            <Tooltip
+              hasArrow
+              bg="teal.500"
+              color="white"
+              placement="top"
+              isOpen={showSaltyTooltip}
+              label={saltyValue[1]}
+            >
+              <RangeSliderThumb boxSize={6} index={1} />
+            </Tooltip>
+          </RangeSlider>
         </Box>
 
         <Button colorScheme="red" size="lg" onClick={() => filterRandomFood()}>
