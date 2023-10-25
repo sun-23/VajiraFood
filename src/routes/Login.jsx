@@ -77,6 +77,21 @@ export default function Login() {
     setLoading(false)
   };
 
+  const resetPassword = async () => {
+    if (!email) {
+      return;
+    }
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email)
+    if (error) {
+
+    } else {
+      setAlertStatus("success");
+      setAlertTitle("สำเร็จ!");
+      setAlertDesc("ไปที่ email เพื่อ reset password");
+      onOpen();
+    }
+  }
+
   return (
     <Container>
       <Heading>Sign in VajiraFood</Heading>
@@ -126,6 +141,12 @@ export default function Login() {
             ยังไม่มี account?{" "}
             <ChakraLink as={ReactRouterLink} to='/signup'>
               Sign Up
+            </ChakraLink>
+          </Text>
+          <Text>
+            ลืม password?{" "}
+            <ChakraLink as={ReactRouterLink} to='/signup'>
+              Send email link reset password
             </ChakraLink>
           </Text>
         </FormControl>
