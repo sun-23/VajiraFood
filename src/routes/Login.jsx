@@ -86,7 +86,7 @@ export default function Login() {
 
     const { data, error } = await supabase.auth.resetPasswordForEmail({email: toEmail})
     if (error) {
-
+      alert(error);
     } else {
       setAlertStatus("success");
       setAlertTitle("สำเร็จ!");
