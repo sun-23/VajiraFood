@@ -68,6 +68,7 @@ import {
   
       if (error) {
         console.log("login error", error);
+        alert(error);
       } else {
         setAlertStatus("success");
         setAlertTitle("สำเร็จ!");

@@ -61,6 +61,7 @@ export default function Login() {
 
     if (error) {
       console.log("login error", error);
+      alert(error);
     } else {
       setAlertStatus("success");
       setAlertTitle("สำเร็จ!");
@@ -84,7 +85,7 @@ export default function Login() {
       return;
     }
 
-    const { data, error } = await supabase.auth.resetPasswordForEmail({email: toEmail})
+    const { data, error } = await supabase.auth.resetPasswordForEmail(toEmail)
     if (error) {
       alert(error);
     } else {
