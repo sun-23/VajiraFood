@@ -21,8 +21,12 @@ import React, { useState } from "react";
 import { supabase } from "../helper/supbaseClient";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+
 export default function Login() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false)
   const [alert_title, setAlertTitle] = useState("");
   const [alert_desc, setAlertDesc] = useState("");
@@ -40,7 +44,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     setLoading(true)
-    if (!email) {
+    if (!email || !password) {
       setAlertStatus("warning");
       setAlertTitle("กรอกข้อมูลไม่ครบ!");
       setAlertDesc("กรุณากรอกข้อมูลให้ครบถ้วน");
@@ -49,23 +53,25 @@ export default function Login() {
       return;
     }
 
-    const { data, error } = await supabase.auth.signInWithOtp({ email })
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
     console.log("login data", data);
 
     if (error) {
       console.log("login error", error);
     } else {
-      console.log("sending email link");
       setAlertStatus("success");
       setAlertTitle("สำเร็จ!");
-      setAlertDesc("ไปที่ email เพื่อรับ link log in จาก supabase");
+      setAlertDesc("log in success");
       onOpen();
 
       //redirectTo in RequireAuth.jsx line 19
-      // if (locationState) {
-      //   const { redirectTo } = locationState;
-      //   navigate(`${redirectTo.pathname}${redirectTo.search}`);
-      // }
+      if (locationState) {
+        const { redirectTo } = locationState;
+        navigate(`${redirectTo.pathname}${redirectTo.search}`);
+      }
     }
 
     setLoading(false)
@@ -101,14 +107,27 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <FormLabel mt={3}>Password</FormLabel>
+          <Input
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <Button 
             leftIcon={<EmailIcon />} 
             mt={3} colorScheme="teal" 
             isLoading={loading} 
             onClick={() => handleLogin()}
           >
-            {loading ? <Text>Loading</Text> : <Text>Send magic link</Text>}
+            {loading ? <Text>Loading</Text> : <Text>Sign In</Text>}
           </Button>
+          <Text>
+            ยังไม่มี account?{" "}
+            <ChakraLink as={ReactRouterLink} to='/signup'>
+              Sign Up
+            </ChakraLink>
+          </Text>
         </FormControl>
       </Stack>
     </Container>

@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./routes/Login";
 import Account from "./routes/Account";
+import Signup from "./routes/Signup";
 
 import { AuthProvider } from "./helper/auth/Context";
 import RequireAuth from "./components/RequireAuth";
@@ -18,6 +19,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />}/>
           <Route
             path="/"
             element={
