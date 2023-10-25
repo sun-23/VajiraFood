@@ -78,10 +78,13 @@ export default function Login() {
   };
 
   const resetPassword = async () => {
-    if (!email) {
+    const toEmail = prompt("กรอก email เพื่อรับ link reset password");
+
+    if (!toEmail) {
       return;
     }
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email)
+
+    const { data, error } = await supabase.auth.resetPasswordForEmail({email: toEmail})
     if (error) {
 
     } else {
@@ -145,9 +148,7 @@ export default function Login() {
           </Text>
           <Text>
             ลืม password?{" "}
-            <Text onClick={() => resetPassword()}>
-              Send email link reset password
-            </Text>
+            <Button colorScheme='teal' size='xs' onClick={() => resetPassword()}>ส่ง link reset password</Button>
           </Text>
         </FormControl>
       </Stack>
