@@ -145,9 +145,9 @@ export default function Login() {
           </Text>
           <Text>
             ลืม password?{" "}
-            <ChakraLink as={ReactRouterLink} to='/signup'>
+            <Text onClick={() => resetPassword()}>
               Send email link reset password
-            </ChakraLink>
+            </Text>
           </Text>
         </FormControl>
       </Stack>
