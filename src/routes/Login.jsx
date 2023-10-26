@@ -22,7 +22,7 @@ import { supabase } from "../helper/supbaseClient";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
