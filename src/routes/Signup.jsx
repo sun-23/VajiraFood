@@ -88,7 +88,7 @@ import {
     return (
       <Container>
         <Heading>Sign Up VajiraFood</Heading>
-        <Text>Create your account here.</Text>
+        <Text>สมัครใช้งาน VajiraFood</Text>
         <Stack spacing={4} paddingTop={4}>
           {isVisible ? (
             <Alert status={alert_status}>

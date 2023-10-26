@@ -21,13 +21,13 @@ import React, { useState } from "react";
 import { supabase } from "../helper/supbaseClient";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Link as ReactRouterLink } from 'react-router-dom'
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [alert_title, setAlertTitle] = useState("");
   const [alert_desc, setAlertDesc] = useState("");
   const [alert_status, setAlertStatus] = useState("warning");
@@ -43,13 +43,13 @@ export default function Login() {
   } = useDisclosure({ defaultIsOpen: false });
 
   const handleLogin = async () => {
-    setLoading(true)
+    setLoading(true);
     if (!email || !password) {
       setAlertStatus("warning");
       setAlertTitle("กรอกข้อมูลไม่ครบ!");
       setAlertDesc("กรุณากรอกข้อมูลให้ครบถ้วน");
       onOpen();
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -75,7 +75,7 @@ export default function Login() {
       }
     }
 
-    setLoading(false)
+    setLoading(false);
   };
 
   const resetPassword = async () => {
@@ -85,7 +85,7 @@ export default function Login() {
       return;
     }
 
-    const { data, error } = await supabase.auth.resetPasswordForEmail(toEmail)
+    const { data, error } = await supabase.auth.resetPasswordForEmail(toEmail);
     if (error) {
       alert(error);
     } else {
@@ -94,12 +94,12 @@ export default function Login() {
       setAlertDesc("ไปที่ email เพื่อ reset password");
       onOpen();
     }
-  }
+  };
 
   return (
     <Container>
       <Heading>Sign in VajiraFood</Heading>
-      <Text>Sign in via magic link with your email below</Text>
+      <Text>ลงชื่อเข้าใช้งาน VajiraFood</Text>
       <Stack spacing={4} paddingTop={4}>
         {isVisible ? (
           <Alert status={alert_status}>
@@ -133,23 +133,30 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button 
-            leftIcon={<EmailIcon />} 
-            mt={3} colorScheme="teal" 
-            isLoading={loading} 
+          <Button
+            leftIcon={<EmailIcon />}
+            mt={3}
+            colorScheme="teal"
+            isLoading={loading}
             onClick={() => handleLogin()}
           >
             {loading ? <Text>Loading</Text> : <Text>Sign In</Text>}
           </Button>
-          <Text>
+          <Text mt={3}>
             ยังไม่มี account?{" "}
-            <ChakraLink as={ReactRouterLink} to='/signup'>
+            <ChakraLink color="teal.500" as={ReactRouterLink} to="/signup">
               Sign Up
             </ChakraLink>
           </Text>
-          <Text>
+          <Text mt={3}>
             ลืม password?{" "}
-            <Button colorScheme='teal' size='xs' onClick={() => resetPassword()}>ส่ง link reset password</Button>
+            <Button
+              colorScheme="teal"
+              size="xs"
+              onClick={() => resetPassword()}
+            >
+              ส่ง link reset password
+            </Button>
           </Text>
         </FormControl>
       </Stack>
