@@ -8,7 +8,7 @@ const manifestForPlugin = {
   includeAssests:['favicon.ico', "apple-touc-icon.png", "masked-icon.svg"],
   manifest:{
     name:"VajiraFood",
-    short_name:"V Food",
+    short_name:"VajiraFood",
     description:"Random food around Vajira Hospital",
     icons:[{
       src: '/android-chrome-192x192.png',
