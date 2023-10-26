@@ -32,7 +32,7 @@ export default function Login() {
   const [alert_desc, setAlertDesc] = useState("");
   const [alert_status, setAlertStatus] = useState("warning");
 
-  const { state: locationState } = useLocation();
+  let location = useLocation();
   const navigate = useNavigate();
 
   // aleart
@@ -43,6 +43,7 @@ export default function Login() {
   } = useDisclosure({ defaultIsOpen: false });
 
   const handleLogin = async () => {
+    console.log(location);
     setLoading(true);
     if (!email || !password) {
       setAlertStatus("warning");
@@ -69,9 +70,17 @@ export default function Login() {
       onOpen();
 
       //redirectTo in RequireAuth.jsx line 19
-      if (locationState) {
-        const { redirectTo } = locationState;
-        navigate(`${redirectTo.pathname}${redirectTo.search}`);
+      if (location.state) {
+        const { redirectTo } = location.state;
+        console.log(redirectTo);
+        if (
+          redirectTo.pathname !== "/login" &&
+          redirectTo.pathname !== "/signup"
+        ) {
+          navigate(`${redirectTo.pathname}${redirectTo.search}`);
+        }
+      } else {
+        navigate("/#");
       }
     }
 
@@ -118,7 +127,7 @@ export default function Login() {
             />
           </Alert>
         ) : null}
-        <FormControl isRequire>
+        <FormControl>
           <FormLabel mt={3}>Email</FormLabel>
           <Input
             placeholder="email"
