@@ -46,7 +46,7 @@ export default function Suggest() {
 
   const [priceValue, setPriceValue] = useState(100);
   const [showPriceTooltip, setPriceTooltip] = useState(false);
-  const [calories, setCalories] = useState(500);
+  const [calories, setCalories] = useState(1000);
   const [showCaloriesTooltip, setCaloriesTooltip] = useState(false);
 
   const [vegetable, setVegetable] = useState(true);
@@ -134,7 +134,7 @@ export default function Suggest() {
           <Text>แคลอรีไม่เกิน {calories} กิโลแคลอรี</Text>
           <Slider
             id="slider"
-            defaultValue={500}
+            defaultValue={1000}
             min={0}
             max={2000}
             step={1}
